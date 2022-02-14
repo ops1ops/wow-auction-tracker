@@ -1,0 +1,17 @@
+{
+  "name": "wow-auction-tracker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "axios": "^0.26.0",
+    "dotenv": "^16.0.0",
+    "node-telegram-bot-api": "^0.56.0"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

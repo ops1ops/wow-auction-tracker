@@ -1,0 +1,25 @@
+name: Price tracker
+
+on:
+#  push:
+#    branches:
+#      - master
+  schedule:
+    - cron: '*/20 * * * *'
+
+jobs:
+  dependencies:
+    environment: asd
+    env:
+      CHAT_ID: ${{ secrets.CHAT_ID }}
+      BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+      WOW_API_TOKEN: ${{ secrets.WOW_API_TOKEN }}
+    name: Starts script
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+    - run: npm install
+    - run: npm start
