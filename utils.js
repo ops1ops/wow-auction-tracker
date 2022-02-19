@@ -22,8 +22,8 @@ const checkPricesEqualityByGold = (price, priceToCompare) => {
 const getWowTokenApiUrl = (token) =>
   `https://eu.api.blizzard.com/data/wow/token/index?namespace=dynamic-eu&locale=en_US&access_token=${token}`;
 
-const getWowApiToken = () => axios.post(
-  'https://us.battle.net/oauth/token?grant_type=client_credentials',
+const getBlizzardToken = () => axios.post(
+  'https://eu.battle.net/oauth/token?grant_type=client_credentials',
   {},
   { auth: { username: process.env.BLIZZARD_CLIENT_ID, password: process.env.BLIZZARD_CLIENT_SECRET } }
 );
@@ -33,5 +33,5 @@ module.exports = {
   getThousandsPart,
   checkPricesEqualityByGold,
   getWowTokenApiUrl,
-  getWowApiToken,
+  getBlizzardToken,
 };

@@ -3,7 +3,7 @@ require('dotenv').config();
 const TelegramBot = require('node-telegram-bot-api');
 const axios = require('axios');
 
-const { convertBlizzardPrice, getWowTokenApiUrl, getThousandsPart, getWowApiToken } = require('./utils');
+const { convertBlizzardPrice, getWowTokenApiUrl, getThousandsPart, getBlizzardToken } = require('./utils');
 
 const TELEGRAM_BOT_TOKEN = process.env.BOT_TOKEN;
 const CHAT_ID = process.env.CHAT_ID;
@@ -15,7 +15,7 @@ const sendMessage = (message) => bot.sendMessage(CHAT_ID, message);
 
 const trackWowTokenPrice = async () => {
   try {
-    const { data: { access_token } } = await getWowApiToken();
+    const { data: { access_token } } = await getBlizzardToken();
 
     const {
       data: { price: newPrice, last_updated_timestamp: updatedAt },
@@ -33,6 +33,8 @@ const trackWowTokenPrice = async () => {
     console.error(error);
 
     await sendMessage('[Error]: Something went wrong in price tracker');
+
+    process.exit(5);
   }
 };
 
