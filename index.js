@@ -7,7 +7,7 @@ const { convertBlizzardPrice, getWowTokenApiUrl, getThousandsPart, getBlizzardTo
 
 const TELEGRAM_BOT_TOKEN = process.env.BOT_TOKEN;
 const CHAT_ID = process.env.CHAT_ID;
-const WOW_TOKEN_THRESHOLD_PRICE = 286000;
+const WOW_TOKEN_THRESHOLD_PRICE = Number(process.env.THRESHOLD_PRICE) || 286000;
 
 const bot = new TelegramBot(TELEGRAM_BOT_TOKEN);
 
@@ -24,7 +24,7 @@ const trackWowTokenPrice = async () => {
     const { gold } = convertBlizzardPrice(newPrice);
     const thousandsPart = getThousandsPart(gold);
 
-    console.log(new Date().toString(), gold);
+    console.log(new Date().toString(), '\nPrice: ', gold);
 
     if (gold <= WOW_TOKEN_THRESHOLD_PRICE) {
       await sendMessage(`Current price: ${thousandsPart}k gold,\nChanged at: ${new Date(updatedAt)}`);
