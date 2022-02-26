@@ -32,7 +32,7 @@ const trackWowTokenPrice = async () => {
   } catch (error) {
     console.error(error);
 
-    await sendMessage('[Error]: Something went wrong in price tracker');
+    await sendMessage(`[Error]: ${error.message}`);
 
     process.exit(5);
   }
