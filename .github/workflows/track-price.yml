@@ -12,6 +12,7 @@ jobs:
       BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
       BLIZZARD_CLIENT_ID: ${{ secrets.BLIZZARD_CLIENT_ID }}
       BLIZZARD_CLIENT_SECRET: ${{ secrets.BLIZZARD_CLIENT_SECRET }}
+      THRESHOLD_PRICE: ${{ secrets.THRESHOLD_PRICE }}
     name: Wow token price
     runs-on: ubuntu-latest
     steps:
