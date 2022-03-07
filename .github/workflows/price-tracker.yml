@@ -5,15 +5,14 @@ on:
     - cron: '*/20 * * * *'
 
 jobs:
-  dependencies:
-    environment: asd
+  wow_token_price:
+    name: Wow token price
     env:
       CHAT_ID: ${{ secrets.CHAT_ID }}
-      BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
       BLIZZARD_CLIENT_ID: ${{ secrets.BLIZZARD_CLIENT_ID }}
       BLIZZARD_CLIENT_SECRET: ${{ secrets.BLIZZARD_CLIENT_SECRET }}
       THRESHOLD_PRICE: ${{ secrets.THRESHOLD_PRICE }}
-    name: Wow token price
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2

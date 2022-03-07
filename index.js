@@ -5,7 +5,7 @@ const axios = require('axios');
 
 const { convertBlizzardPrice, getWowTokenApiUrl, getThousandsPart, getBlizzardToken } = require('./utils');
 
-const TELEGRAM_BOT_TOKEN = process.env.BOT_TOKEN;
+const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const CHAT_ID = process.env.CHAT_ID;
 const WOW_TOKEN_THRESHOLD_PRICE = Number(process.env.THRESHOLD_PRICE) || 286000;
 
@@ -22,11 +22,12 @@ const trackWowTokenPrice = async () => {
     } = await axios.get(getWowTokenApiUrl(access_token));
 
     const { gold } = convertBlizzardPrice(newPrice);
-    const thousandsPart = getThousandsPart(gold);
 
     console.log(new Date().toString(), '\nPrice: ', gold);
 
     if (gold <= WOW_TOKEN_THRESHOLD_PRICE) {
+      const thousandsPart = getThousandsPart(gold);
+
       await sendMessage(`Current price: ${thousandsPart}k gold,\nChanged at: ${new Date(updatedAt)}`);
     }
   } catch (error) {
