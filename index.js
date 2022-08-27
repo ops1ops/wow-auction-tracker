@@ -9,6 +9,9 @@ const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const CHAT_ID = process.env.CHAT_ID;
 const WOW_TOKEN_THRESHOLD_PRICE = Number(process.env.THRESHOLD_PRICE) || 286000;
 
+const REQUEST_TIMEOUT = 3000;
+const ABORTED_CONNECTION_CODE = 'ECONNABORTED';
+
 const bot = new TelegramBot(TELEGRAM_BOT_TOKEN);
 
 const sendMessage = (message) => bot.sendMessage(CHAT_ID, message);
@@ -19,7 +22,7 @@ const trackWowTokenPrice = async () => {
 
     const {
       data: { price: newPrice, last_updated_timestamp: updatedAt },
-    } = await axios.get(getWowTokenApiUrl(access_token));
+    } = await axios.get(getWowTokenApiUrl(access_token), {timeout: REQUEST_TIMEOUT});
 
     const { gold } = convertBlizzardPrice(newPrice);
 
@@ -31,6 +34,8 @@ const trackWowTokenPrice = async () => {
       await sendMessage(`Current price: ${thousandsPart}k gold,\nChanged at: ${new Date(updatedAt)}`);
     }
   } catch (error) {
+    if (error.code === ABORTED_CONNECTION_CODE) return;
+
     console.error(error);
 
     await sendMessage(`[Error]: ${error.message}`);
